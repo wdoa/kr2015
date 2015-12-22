@@ -34,10 +34,8 @@ public class Recipe {
 	
 	public int Search(String Name){
 		for(int i=0;i<recipe.size();i++){
-
 			if(Name.equals(recipe.get(i).name())){System.out.println(i);
 			return i;}
-			
 		}
 		return 0;
 	}

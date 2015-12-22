@@ -3,11 +3,22 @@ import java.util.HashMap;
 public class Dry extends Product {
 
 	public static String[] dryDimensions = { "oz", "cup", "lbs", "g" };
+    public static String[] dryDimensionsC = { "oz", "cup", "lbs", "g" ,"custom"};
+    private String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     private HashMap<String,Integer> dimensions;
 
 	public Dry(String name, double amount, String dimension) {
 		super(name, amount, dimension);
+        type="Dry";
         dimensions = new HashMap<>();
         fill();
 	}
@@ -43,11 +54,17 @@ public class Dry extends Product {
     }
 
     public double proportionalAmount(String from,String to){
-        double r=0;
+        double r;
         r=NormalAmount(from);
         r=r/dimensions.get(to);
         return r;
     }
 
+	public double proportionalAmount(double a,String to){
+		double r;
+		r=a;
+		r=r/dimensions.get(to);
+		return r;
+	}
 
 }

@@ -3,12 +3,23 @@ import java.util.HashMap;
 public class Liquid extends Product {
 
     private HashMap<String,Integer> dimensions;
-
+    private String type;
 	public static String[] dryDimensions = { "oz", "cup", "l", "g" ,"ml","tsp","tbsp"};
+    public static String[] dryDimensionsC = { "oz", "cup", "l", "g" ,"ml","tsp","tbsp","custom"};
 
-	public Liquid(String name, double amount, String dimension) {
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Liquid(String name, double amount, String dimension) {
 		super(name, amount, dimension);
         dimensions = new HashMap<>();
+        type="Liquid";
+
         fill();
 	}
 
@@ -60,5 +71,13 @@ public class Liquid extends Product {
         r=r/dimensions.get(to);
         return r;
     }
+
+	public double proportionalAmount(double a,String to){
+		double r=0;
+		r=a;
+		r=r/dimensions.get(to);
+		return r;
+	}
+
 
 }
