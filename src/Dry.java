@@ -5,6 +5,7 @@ public class Dry extends Product {
 	public static String[] dryDimensions = { "oz", "cup", "lbs", "g" };
     public static String[] dryDimensionsC = { "oz", "cup", "lbs", "g" ,"custom"};
     private String type;
+	private HashMap<String,Integer> dimensions;
 
     public String getType() {
         return type;
@@ -14,7 +15,7 @@ public class Dry extends Product {
         this.type = type;
     }
 
-    private HashMap<String,Integer> dimensions;
+
 
 	public Dry(String name, double amount, String dimension) {
 		super(name, amount, dimension);

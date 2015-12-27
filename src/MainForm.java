@@ -1,17 +1,19 @@
+import sun.swing.FilePane;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicComboPopup;
-import javax.swing.text.Style;
-import javax.swing.text.StyledEditorKit;
+import javax.swing.plaf.metal.MetalLookAndFeel;
+import javax.swing.plaf.metal.OceanTheme;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Set;
 
 /**
  * Created by forwi on 17.12.2015.
@@ -34,7 +36,7 @@ public class MainForm extends JFrame{
     private JButton addLiquidButton;
     private JTextPane textPane1;
     private JPanel panel;
-    private JPanel convertor;
+    private JPanel converter;
     private JPanel createRecipe;
     private JPanel downloadRecipe;
     private JTextField textField5;
@@ -87,27 +89,6 @@ public class MainForm extends JFrame{
     private JButton convertButton1;
     private JComboBox comboBox18;
     private JButton bothButton;
-    private JPanel testPanel;
-    private JButton qButton1;
-    private JButton qButton2;
-    private JButton qButton3;
-    private JButton qButton4;
-    private JButton button5;
-    private JButton startButton;
-    private JLabel quest;
-    private JLabel congrats;
-    private JPanel customizeTest;
-    private JTextField textField25;
-    private JButton OKButton;
-    private JLabel testFileName;
-    private JTextField textField26;
-    private JTextField textField27;
-    private JTextField textField28;
-    private JTextField textField29;
-    private JTextField textField30;
-    private JButton addToTestButton;
-    private JButton createTestButton;
-    private JLabel choseTest;
     private JTextField textField31;
     private JButton powButton;
     private JButton a1Button;
@@ -132,7 +113,6 @@ public class MainForm extends JFrame{
     private JScrollPane scrollPane;
     private JPanel calculator;
     private JPanel pane1;
-    private JPanel pane2;
     private JPanel pane3;
     private JLabel weightLabel;
     private JLabel liquidLabel;
@@ -148,22 +128,39 @@ public class MainForm extends JFrame{
     private JLabel productNameLabel1;
     private JLabel weightLabel1;
     private JLabel dimensionsLabel1;
-    private JLabel writeQuestionLabel;
-    private JLabel writeRightAnswerLabel;
-    private JLabel otherAnswersLabel;
-    private JButton addMoreIngridientsButton;
+    private JButton addMoreIngredientsButton;
     private JButton proportionButton;
     private JTextField textField32;
     private JComboBox comboBox19;
-    private JLabel ingridientLabel;
+    private JLabel ingredientLabel;
     private JLabel newAmountLabel;
     private JComboBox comboBox20;
+    private JButton leftBracketButton;
+    private JButton rightBracketButton;
+    private JButton sinButton;
+    private JButton cosButton;
+    private JButton tgButton;
+    private JButton ctgButton;
+    private JButton πButton;
+    private JButton eButton;
+    private JButton choseFileButton;
     private JFileChooser chooser;
     private Controller controller;
+    private static Color panelColor=new Color(0xe9ece5);
+    private static Color buttonColor=new Color(0xb3c2bf);//new Color(0x3b3a36);
+    private static Color boxColor=new Color(0xb3c2bf);
+    private static Color selectedBoxColor=new Color(0xc0dfd9);
+    private static Color textButtonColor= Color.BLACK;//Color.white;
 
     public MainForm() throws IOException {
+        ImageIcon i=new ImageIcon("4.jpg");
+        pane3=new BgPanel();
+        pane1=new BgPanel();
+        createRecipe=new BgPanel();
+        downloadRecipe=new BgPanel();
+        calculator=new BgPanel();
+        converter=new BgPanel();
         controller=new Controller();
-        controller.hideButtons(qButton1,qButton2,qButton3,qButton4,quest,button5,false);
         setContentPane(panel);
         setTitle("Stupid program");
         Image im = new ImageIcon("1.png").getImage();
@@ -172,32 +169,32 @@ public class MainForm extends JFrame{
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         pack();
 
-        setSize(600,430);
-        tabbedPane1.setBackground(new Color(0xe9ece5));
-        downloadRecipe.setBackground(new Color(0xe9ece5));
+
+        setSize(530, 530);
+        setResizable(false);
+        tabbedPane1.setBackground(panelColor);
+        downloadRecipe.setBackground(panelColor);
         textArea1.setFont( new Font("Georgia", Font.PLAIN,13));
-        textArea1.setBackground(new Color(0xe9ece5));
+        textArea1.setBackground(calculator.getBackground());
 
-        comboBoxStyle(comboBox20,new Color(0xb3c2bf), new Color(0xc0dfd9), new Font("Georgia", Font.PLAIN,11));
-        comboBoxStyle(comboBox19,new Color(0xb3c2bf), new Color(0xc0dfd9), new Font("Georgia", Font.PLAIN,11));
-        comboBoxesStyle(comboBox18, comboBox17, comboBox16,new Color(0xb3c2bf), new Color(0xc0dfd9), new Font("Georgia", Font.PLAIN,11));
-        comboBoxesStyle(comboBox15, comboBox14, comboBox13,new Color(0xb3c2bf), new Color(0xc0dfd9), new Font("Georgia", Font.PLAIN,11));
-        comboBoxesStyle(comboBox12, comboBox11, comboBox10,new Color(0xb3c2bf), new Color(0xc0dfd9), new Font("Georgia", Font.PLAIN,11));
-        comboBoxesStyle(comboBox9, comboBox8, comboBox7,new Color(0xb3c2bf), new Color(0xc0dfd9), new Font("Georgia", Font.PLAIN,11));
-        comboBoxesStyle(comboBox6, comboBox5, comboBox4,new Color(0xb3c2bf), new Color(0xc0dfd9), new Font("Georgia", Font.PLAIN,11));
-        comboBoxesStyle(comboBox3, comboBox2, comboBox1,new Color(0xb3c2bf), new Color(0xc0dfd9), new Font("Georgia", Font.PLAIN,11));
+        comboBoxStyle(comboBox20, boxColor, selectedBoxColor, new Font("Georgia", Font.PLAIN, 11));
+        comboBoxStyle(comboBox19,boxColor, selectedBoxColor, new Font("Georgia", Font.PLAIN,11));
+        comboBoxesStyle(comboBox18, comboBox17, comboBox16,boxColor, selectedBoxColor, new Font("Georgia", Font.PLAIN,11));
+        comboBoxesStyle(comboBox15, comboBox14, comboBox13,boxColor, selectedBoxColor, new Font("Georgia", Font.PLAIN,11));
+        comboBoxesStyle(comboBox12, comboBox11, comboBox10,boxColor, selectedBoxColor, new Font("Georgia", Font.PLAIN,11));
+        comboBoxesStyle(comboBox9, comboBox8, comboBox7,boxColor, selectedBoxColor, new Font("Georgia", Font.PLAIN,11));
+        comboBoxesStyle(comboBox6, comboBox5, comboBox4,boxColor, selectedBoxColor, new Font("Georgia", Font.PLAIN,11));
+        comboBoxesStyle(comboBox3, comboBox2, comboBox1,boxColor, selectedBoxColor, new Font("Georgia", Font.PLAIN,11));
 
-        textFieldsFont(textField1,textField2,textField3,new Font("Georgia", Font.PLAIN,12),new Color(0xc0dfd9));
-        textFieldsFont(textField4,textField5,textField6,new Font("Georgia", Font.PLAIN,12),new Color(0xc0dfd9));
-        textFieldsFont(textField7,textField8,textField9,new Font("Georgia", Font.PLAIN,12),new Color(0xc0dfd9));
-        textFieldsFont(textField10,textField11,textField12,new Font("Georgia", Font.PLAIN,12),new Color(0xc0dfd9));
-        textFieldsFont(textField13,textField14,textField15,new Font("Georgia", Font.PLAIN,12),new Color(0xc0dfd9));
-        textFieldsFont(textField16,textField17,textField18,new Font("Georgia", Font.PLAIN,12),new Color(0xc0dfd9));
-        textFieldsFont(textField19,textField20,textField21,new Font("Georgia", Font.PLAIN,12),new Color(0xc0dfd9));
-        textFieldsFont(textField22,textField23,textField24,new Font("Georgia", Font.PLAIN,12),new Color(0xc0dfd9));
-        textFieldsFont(textField25,textField26,textField27,new Font("Georgia", Font.PLAIN,12),new Color(0xc0dfd9));
-        textFieldsFont(textField28,textField29,textField30,new Font("Georgia", Font.PLAIN,12),new Color(0xc0dfd9));
-        textFieldsFont(recipeName,textField29,textField31,new Font("Georgia", Font.PLAIN,12),new Color(0xc0dfd9));
+        textFieldsFont(textField1,textField2,textField3,new Font("Georgia", Font.PLAIN,12),selectedBoxColor);
+        textFieldsFont(textField4,textField5,textField6,new Font("Georgia", Font.PLAIN,12),selectedBoxColor);
+        textFieldsFont(textField7,textField8,textField9,new Font("Georgia", Font.PLAIN,12),selectedBoxColor);
+        textFieldsFont(textField10,textField11,textField12,new Font("Georgia", Font.PLAIN,12),selectedBoxColor);
+        textFieldsFont(textField13,textField14,textField15,new Font("Georgia", Font.PLAIN,12),selectedBoxColor);
+        textFieldsFont(textField16,textField17,textField18,new Font("Georgia", Font.PLAIN,12),selectedBoxColor);
+        textFieldsFont(textField19,textField20,textField21,new Font("Georgia", Font.PLAIN,12),selectedBoxColor);
+        textFieldsFont(textField22,textField23,textField24,new Font("Georgia", Font.PLAIN,12),selectedBoxColor);
+        textField31.setFont(new Font("Georgia", Font.PLAIN,19));
 
         labelsFont(weightLabel, liquidLabel, fileC, new Font("Georgia", Font.PLAIN, 12));
         labelsFont(dimensionsLabel,forLiquidLabel,forWeightLabel,new Font("Georgia",Font.PLAIN,12));
@@ -208,42 +205,31 @@ public class MainForm extends JFrame{
         labelsFont(label6,label6,label7,new Font("Georgia",Font.PLAIN,12));
         labelsFont(label8,label9,label10,new Font("Georgia",Font.PLAIN,12));
         labelsFont(label11,label12,label13,new Font("Georgia",Font.PLAIN,12));
-        labelsFont(label14,label15,congrats,new Font("Georgia",Font.PLAIN,12));
-        labelsFont(choseTest,testFileName,quest,new Font("Georgia",Font.PLAIN,12));
-        labelsFont(writeQuestionLabel,writeRightAnswerLabel,otherAnswersLabel,new Font("Georgia",Font.PLAIN,12));
-        labelsFont(newAmountLabel,ingridientLabel,resultLabel,new Font("Georgia",Font.PLAIN,12));
+        labelsFont(label14,label15,label15/*congrats*/,new Font("Georgia",Font.PLAIN,12));
+        labelsFont(newAmountLabel, ingredientLabel,resultLabel,new Font("Georgia",Font.PLAIN,12));
 
         tabbedPane1.setFont(new Font("Georgia",Font.PLAIN,11));
-        panelColor(convertor, createRecipe, testPanel, new Color(0xe9ece5));
-        panelColor(customizeTest, calculator, pane1, new Color(0xe9ece5));
-        panelColor(pane2, pane3, pane1, new Color(0xe9ece5));
-        UIManager.put("TabbedPane.contentAreaColor", new Color(0xe9ece5));
+    //    panelColor(converter, createRecipe, testPanel, panelColor);
+ //       panelColor(customizeTest, calculator, pane1, panelColor);
+  //      panelColor(pane2, pane3, pane1, panelColor);
+        UIManager.put("TabbedPane.contentAreaColor", panelColor);
 
-        buttonStyle(proportionButton, new Color(0x3b3a36), Color.white, new Font("Georgia", Font.PLAIN,12));
-        buttonsStyle(convertButton1, convertButton2, bothButton, new Color(0x3b3a36), Color.white, new Font("Georgia", Font.PLAIN,12));
-        buttonsStyle(convertButton, addLiquidButton, addWeightButton, new Color(0x3b3a36), Color.white, new Font("Georgia", Font.PLAIN,12));
-        buttonsStyle(saveRecipeButton,qButton4 , button5, new Color(0x3b3a36), Color.white, new Font("Georgia", Font.PLAIN,12));
-        buttonsStyle(qButton1, qButton2, qButton3, new Color(0x3b3a36), Color.white, new Font("Georgia", Font.PLAIN,12));
-        buttonsStyle(createTestButton, OKButton,addToTestButton, new Color(0x3b3a36), Color.white, new Font("Georgia", Font.PLAIN,12));
-        buttonsStyle(startButton, sqButton,cButton, new Color(0x3b3a36), Color.white, new Font("Georgia", Font.BOLD,12));
-        buttonsStyle(minusButton, multiButton,divideButton, new Color(0x3b3a36), Color.white, new Font("Georgia", Font.BOLD,12));
-        buttonsStyle(delButton, resButton,plusButton, new Color(0x3b3a36), Color.white, new Font("Georgia", Font.BOLD,12));
-        buttonsStyle(comaButton, powButton,a0Button, new Color(0x3b3a36), Color.white, new Font("Georgia", Font.BOLD,12));
-        buttonsStyle(a1Button, a2Button,a3Button, new Color(0x3b3a36), Color.white, new Font("Georgia", Font.BOLD,12));
-        buttonsStyle(a4Button, a5Button,a6Button, new Color(0x3b3a36), Color.white, new Font("Georgia", Font.BOLD,12));
-        buttonsStyle(a7Button, a8Button,a9Button, new Color(0x3b3a36), Color.white, new Font("Georgia", Font.BOLD,12));
+        UIManager.put("Button.select", new Color(0x716A64));
 
-        try {
-           UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
-        }
+        buttonsStyle(convertButton1, convertButton2, bothButton, buttonColor, textButtonColor, new Font("Georgia", Font.PLAIN,12));
+        buttonsStyle(convertButton, addLiquidButton, addWeightButton, buttonColor, textButtonColor, new Font("Georgia", Font.PLAIN,12));
+        buttonStyle(saveRecipeButton, buttonColor, textButtonColor, new Font("Georgia", Font.PLAIN,12));
+        buttonsStyle(/*startButton*/sqButton, sqButton,cButton, buttonColor, textButtonColor, new Font("Georgia", Font.BOLD,14));
+        buttonsStyle(minusButton, multiButton,divideButton, buttonColor, textButtonColor, new Font("Georgia", Font.BOLD,14));
+        buttonsStyle(delButton, resButton,plusButton, buttonColor, textButtonColor, new Font("Georgia", Font.BOLD,14));
+        buttonsStyle(comaButton, powButton,a0Button, buttonColor, textButtonColor, new Font("Georgia", Font.BOLD,14));
+        buttonsStyle(a1Button, a2Button,a3Button, buttonColor, textButtonColor, new Font("Georgia", Font.BOLD,14));
+        buttonsStyle(a4Button, a5Button,a6Button, buttonColor, textButtonColor, new Font("Georgia", Font.BOLD,14));
+        buttonsStyle(a7Button, a8Button,a9Button, buttonColor, textButtonColor, new Font("Georgia", Font.BOLD,14));
+        buttonsStyle(sinButton, cosButton,tgButton, buttonColor, textButtonColor, new Font("Georgia", Font.BOLD,14));
+        buttonsStyle(ctgButton, rightBracketButton,leftBracketButton, buttonColor, textButtonColor, new Font("Georgia", Font.BOLD,14));
+        buttonsStyle(eButton, πButton,πButton, buttonColor, textButtonColor, new Font("Georgia", Font.BOLD,14));
+
         turnOff();
 
         controller.setComboModel(comboBox17,new MyCBMDry(Liquid.dryDimensions));
@@ -251,8 +237,9 @@ public class MainForm extends JFrame{
         comboBox17.setSelectedIndex(0);
         comboBox18.setSelectedIndex(0);
         controller.setComboModel(comboBox1,new MyCBMDry(Recipe.types));
-        convertButton.setEnabled(false);
-        comboBox1.setSelectedIndex(0);
+     //   convertButton.setEnabled(false);
+
+
         controller.setComboModel(comboBox6,new MyCBMDry());
 
         comboBox1.addActionListener(new ActionListener() {
@@ -266,6 +253,7 @@ public class MainForm extends JFrame{
                 convertButton.setEnabled(true);
             }
         });
+        comboBox1.setSelectedIndex(1);
 
         convertButton.addActionListener(new ActionListener() {
             @Override
@@ -295,48 +283,14 @@ public class MainForm extends JFrame{
             }
         });
 
-        chooser = new JFileChooser();
+        chooser = new JSystemFileChooser();
+
         chooser.setCurrentDirectory(new File("."));
-        choseTest.setText("Chose customize test");
-        choseTest.addMouseListener(new MouseListener() {
+
+        choseFileButton.addActionListener(new ActionListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                int r = chooser.showDialog(panel, "chooice dialog");
-                if(r == JFileChooser.APPROVE_OPTION)
-                {
-                    String name
-                            = chooser.getSelectedFile().getPath();
-                    try {
-                        controller.getModel().setTests(name);
-
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    }
-
-                }
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-            }
-        });
-
-        fileC.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                int r = chooser.showDialog(panel, "Choice dialog");
+            public void actionPerformed(ActionEvent e) {
+                int r = chooser.showDialog(panel, "OK");
                 if(r == JFileChooser.APPROVE_OPTION)
                 {
                     String name
@@ -347,35 +301,14 @@ public class MainForm extends JFrame{
                         printRecipe(controller.getModel().getFriendList());
                         controller.setComboModel(comboBox19,new MyCBMDry(controller.getModel().getFriendList().makeString()));
                         if(controller.getModel().selectedIndexFriendList())
-                        comboBox19.setSelectedIndex(0);
+                            comboBox19.setSelectedIndex(0);
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }
 
                 }
             }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
         });
-
 
         comboBox4.addActionListener(new ActionListener() {
             @Override
@@ -401,139 +334,12 @@ public class MainForm extends JFrame{
         }
     });
 
-        startButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                 congrats.setVisible(false);
-                startButton.setVisible(false);
-                choseTest.setVisible(false);
-                hideButtons(qButton1, qButton2, qButton3, qButton4, quest, button5, true);
-                try{
-                makeButtons(qButton1, qButton2, qButton3, qButton4,controller.getModel().randomJustQuestion());}
-                catch(IllegalArgumentException a){
-                    controller.getModel().setTests(new Tests());
-                    makeButtons(qButton1, qButton2, qButton3, qButton4,controller.getModel().randomJustQuestion() );
-                }
-                button5.setText("Right answer");
-            }
-        });
-
-        button5.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(button5.getText().equals("Right answer")){
-                    coloringRightAnswer(qButton1,qButton2,qButton3,qButton4,controller.getModel().showRightAnswer(qButton1.getText(),qButton2.getText(),qButton3.getText(),qButton4.getText(),quest.getText()));
-                    setAnswering();
-                }
-                else{
-                    recolour(qButton1, qButton2, qButton3, qButton4, new Color(0x3b3a36));
-                         if(controller.getModel().getTotalQuestions()==controller.getModel().getTestQuestionCounter()){
-                        hideButtons(qButton1, qButton2, qButton3, qButton4, quest, button5, false);
-                        startButton.setVisible(true);
-                        choseTest.setVisible(true);
-                        congrats.setVisible(true);
-                        congrats.setText("Right answers: "+String.valueOf(controller.getModel().getTests().getRightAnswersCounter()+"/" +controller.getModel().getTotalQuestions()));
-                        controller.getModel().getTests().newTest();
-                    }else
-                    {
-                        makeButtons(qButton1, qButton2, qButton3, qButton4,controller.getModel().randomJustQuestion());
-                        button5.setText("Right answer");
-                    }
-                }
-            }
-        });
-
-        OKButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    controller.getModel().newCustomTest(textField25.getText());
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
-                OKButton.setEnabled(false);
-            }
-        });
-
-        addToTestButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                controller.getModel().addToTest(textField26.getText(),textField27.getText(),textField28.getText(),textField29.getText(),textField30.getText());
-                emptyFields(textField26, textField27, textField28, textField29, textField30);
-            }
-        });
-
-        createTestButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                addToTestButton.doClick();
-                OKButton.setEnabled(true);
-                try {
-                    controller.getModel().createTestRewrite();
-                } catch (IOException e1) {
-                    return;
-                }
-            }
-        });
-
-        qButton1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(controller.getModel().isRightAnswer(qButton1.getText(),qButton1.getBackground(),new Color(104,159,56),quest.getText()))
-                    qButton1.setBackground(new Color(104,159,56));
-                else{
-                    qButton1.setBackground(new Color(150, 40, 27));
-                    coloringRightAnswer(qButton1,qButton2,qButton3,qButton4,controller.getModel().rightAnswer(qButton2.getText(),qButton3.getText(),qButton4.getText(),quest.getText()));
-                }
-                setAnswering();
-            }
-        });
-
-        qButton2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(controller.getModel().isRightAnswer(qButton2.getText(),qButton2.getBackground(),new Color(104,159,56),quest.getText()))
-                    qButton2.setBackground(new Color(104,159,56));
-                else{
-                    qButton2.setBackground(new Color(150, 40, 27));
-                    coloringRightAnswer(qButton1,qButton2,qButton3,qButton4,controller.getModel().rightAnswer(qButton1.getText(),qButton3.getText(),qButton4.getText(),quest.getText()));
-                }
-                setAnswering();
-            }
-        });
-
-        qButton3.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(controller.getModel().isRightAnswer(qButton3.getText(),qButton3.getBackground(),new Color(104,159,56),quest.getText()))
-                    qButton3.setBackground(new Color(104,159,56));
-                else{
-                    qButton3.setBackground(new Color(150, 40, 27));
-                    coloringRightAnswer(qButton1,qButton2,qButton3,qButton4,controller.getModel().rightAnswer(qButton2.getText(),qButton1.getText(),qButton4.getText(),quest.getText()));
-                }
-                setAnswering();
-            }
-        });
-
-        qButton4.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(controller.getModel().isRightAnswer(qButton4.getText(),qButton4.getBackground(),new Color(104,159,56),quest.getText()))
-                qButton4.setBackground(new Color(104,159,56));
-                else{
-                    qButton4.setBackground(new Color(150, 40, 27));
-                    coloringRightAnswer(qButton1, qButton2, qButton3, qButton4, controller.getModel().rightAnswer(qButton2.getText(), qButton3.getText(), qButton1.getText(), quest.getText()));
-                }
-                setAnswering();
-            }
-        });
-
-
         a1Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(controller.calculationsCheck('1'))
                 {
+                    clearResult(textField31,controller.getModel().isNew());
                     textField31.setText(textField31.getText() + '1');
                     controller.calculationsAdd('1');
                 }
@@ -545,6 +351,7 @@ public class MainForm extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 if(controller.calculationsCheck('2'))
                 {
+                    clearResult(textField31,controller.getModel().isNew());
                     textField31.setText(textField31.getText() + '2');
                     controller.calculationsAdd('2');
 
@@ -557,6 +364,7 @@ public class MainForm extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 if(controller.calculationsCheck('3'))
                 {
+                    clearResult(textField31,controller.getModel().isNew());
                     textField31.setText(textField31.getText() + '3');
                     controller.calculationsAdd('3');
                 }
@@ -568,6 +376,7 @@ public class MainForm extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 if(controller.calculationsCheck('4'))
                 {
+                    clearResult(textField31,controller.getModel().isNew());
                     textField31.setText(textField31.getText() + '4');
                     controller.calculationsAdd('4');
                 }
@@ -579,6 +388,7 @@ public class MainForm extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 if(controller.calculationsCheck('5'))
                 {
+                    clearResult(textField31,controller.getModel().isNew());
                     textField31.setText(textField31.getText() + '5');
                     controller.calculationsAdd('5');
                 }
@@ -590,6 +400,7 @@ public class MainForm extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 if(controller.calculationsCheck('6'))
                 {
+                    clearResult(textField31,controller.getModel().isNew());
                     textField31.setText(textField31.getText() + '6');
                     controller.calculationsAdd('6');
                 }
@@ -601,6 +412,7 @@ public class MainForm extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 if(controller.calculationsCheck('7'))
                 {
+                    clearResult(textField31,controller.getModel().isNew());
                     textField31.setText(textField31.getText() + '7');
                     controller.calculationsAdd('7');
                 }
@@ -612,6 +424,7 @@ public class MainForm extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 if(controller.calculationsCheck('8'))
                 {
+                    clearResult(textField31,controller.getModel().isNew());
                     textField31.setText(textField31.getText() + '8');
                     controller.calculationsAdd('8');
                 }
@@ -623,6 +436,7 @@ public class MainForm extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 if(controller.calculationsCheck('9'))
                 {
+                    clearResult(textField31,controller.getModel().isNew());
                     textField31.setText(textField31.getText() + '9');
                     controller.calculationsAdd('9');
                 }
@@ -634,6 +448,7 @@ public class MainForm extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 if(controller.calculationsCheck('0'))
                 {
+                    clearResult(textField31,controller.getModel().isNew());
                     textField31.setText(textField31.getText() + '0');
                     controller.calculationsAdd('0');
                 }
@@ -700,19 +515,117 @@ public class MainForm extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 if(controller.calculationsCheck('s'))
                 {
+                    clearResult(textField31,controller.getModel().isNew());
                     textField31.setText(textField31.getText() + '√');
                     controller.calculationsAdd('s');
                 }
             }
         });
 
+        textField31.setEnabled(false);
+        textField31.setDisabledTextColor(Color.black);
+
         comaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(controller.calculationsCheck(','))
-                {
+                if (controller.calculationsCheck(',')) {
                     textField31.setText(textField31.getText() + ',');
                     controller.calculationsAdd(',');
+                }
+            }
+        });
+
+        tgButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(controller.calculationsCheck('t'))
+                {
+                    clearResult(textField31,controller.getModel().isNew());
+                    textField31.setText(textField31.getText() + "tg");
+                    controller.calculationsAdd('t');
+                }
+            }
+        });
+
+        ctgButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(controller.calculationsCheck('c'))
+                {
+                    clearResult(textField31,controller.getModel().isNew());
+                    textField31.setText(textField31.getText() + "ctg");
+                    controller.calculationsAdd('c');
+                }
+            }
+        });
+
+        sinButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(controller.calculationsCheck('i'))
+                {
+                    clearResult(textField31,controller.getModel().isNew());
+                    textField31.setText(textField31.getText() + "sin");
+                    controller.calculationsAdd('i');
+                }
+            }
+        });
+
+        cosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(controller.calculationsCheck('o'))
+                {
+                    clearResult(textField31,controller.getModel().isNew());
+                    textField31.setText(textField31.getText() + "cos");
+                    controller.calculationsAdd('o');
+                }
+            }
+        });
+
+        πButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(controller.calculationsCheck('p'))
+                {
+                    clearResult(textField31,controller.getModel().isNew());
+                    textField31.setText(textField31.getText() + 'π');
+                    controller.calculationsAdd('p');
+                }
+            }
+        });
+
+        eButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(controller.calculationsCheck('e'))
+                {
+                    clearResult(textField31,controller.getModel().isNew());
+                    textField31.setText(textField31.getText() + 'e');
+                    controller.calculationsAdd('e');
+                }
+            }
+        });
+
+        rightBracketButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(controller.calculationsCheck(')'))
+                {
+                    textField31.setText(textField31.getText() + ')');
+                    controller.calculationsAdd(')');
+                }
+            }
+        });
+
+        leftBracketButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(controller.calculationsCheck('('))
+                {
+                    clearResult(textField31,controller.getModel().isNew());
+                    textField31.setText(textField31.getText() + '(');
+                    controller.calculationsAdd('(');
                 }
             }
         });
@@ -728,6 +641,7 @@ public class MainForm extends JFrame{
         cButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                clearResult(textField31,controller.getModel().isNew());
                 textField31.setText(controller.getModel().cButtonWork(textField31.getText()));
             }
         });
@@ -737,6 +651,7 @@ public class MainForm extends JFrame{
             public void actionPerformed(ActionEvent e) {
            //     calculations = new Calculations();//////////////////////////////////////////////////////////////////////////////////////////////////////////////
           //      if(calculations.fromString(textField31.getText()))
+                if(controller.getModel().getCalculations().canBeResult())
                 textField31.setText(controller.getModel().calculationsToString());
                 controller.getModel().newCalculations();
             }
@@ -784,7 +699,7 @@ public class MainForm extends JFrame{
             }
         });
 
-        addMoreIngridientsButton.addActionListener(new ActionListener() {
+        addMoreIngredientsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 forFile(controller.getModel().getFriendListForSave());
@@ -905,23 +820,12 @@ public class MainForm extends JFrame{
         t2.setVisible(true);
     }
 
-    private void coloringRightAnswer(JButton b1,JButton b2,JButton b3,JButton b4,String s){
-        if(b1.getText().equals(s)){
-            b1.setBackground(new Color(104,159,56));
-        }else{
-            if(s.equals(b2.getText())){
-                b2.setBackground(new Color(104,159,56));
-            }
-            else{
-                if(s.equals(b3.getText())){
-                    b3.setBackground(new Color(104,159,56));
-                }
-                else{
-                    b4.setBackground(new Color(104,159,56));
-                }
-            }
+    private void clearResult(JTextField j,boolean b){
+        if(b){
+            j.setText("");
         }
     }
+
 
     private void turnOn(String s){
         switch (controller.getModel().getComboNumber()){
@@ -963,7 +867,7 @@ public class MainForm extends JFrame{
             }
             case 16:{
                 forTurnOn(s, comboBox16, label15, textField23, textField24);
-                addMoreIngridientsButton.setVisible(true);
+                addMoreIngredientsButton.setVisible(true);
                 break;
             }
         }
@@ -1022,15 +926,6 @@ public class MainForm extends JFrame{
         t3.setFont(f);
     }
 
-    public void makeButtons(JButton b1,JButton b2,JButton b3,JButton b4,String q){
-        controller.getModel().makeButtons(q);
-        quest.setText(q);/////////////////?
-        b1.setText(controller.getModel().getAnswerForQuestion(0));
-        b2.setText(controller.getModel().getAnswerForQuestion(1));
-        b3.setText(controller.getModel().getAnswerForQuestion(2));
-        b4.setText(controller.getModel().getAnswerForQuestion(3));
-    }
-
     private void forFile(FriendList fl){
         check(fl,textField3,textField4,comboBox6,labelDry);
         check(fl,textField5,textField6,comboBox7,label6);
@@ -1052,7 +947,7 @@ public class MainForm extends JFrame{
         turnOffTesxtFields(false);
         turnOffLabels(false);
         turnOffComboBoxes(false);
-        addMoreIngridientsButton.setVisible(false);
+        addMoreIngredientsButton.setVisible(false);
         controller.getModel().setComboNumber(7);
     }
     
@@ -1085,13 +980,6 @@ public class MainForm extends JFrame{
         comboBox6.setVisible(b);
     }
 
-    private void setAnswering(){
-        if(controller.getModel().getTotalQuestions()==controller.getModel().getTestQuestionCounter()){
-            button5.setText("Finish");
-        }else
-            button5.setText("Next question");
-    }
-    
     private void turnOffTesxtFields(boolean b){
         textField24.setVisible(b);
         textField23.setVisible(b);
@@ -1155,3 +1043,68 @@ public class MainForm extends JFrame{
     }
 
 }
+
+class JSystemFileChooser extends JFileChooser{
+    public void updateUI(){
+        LookAndFeel old = UIManager.getLookAndFeel();
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        }
+        catch (Throwable ex) {
+            old = null;
+        }
+
+        super.updateUI();
+
+        if(old != null){
+            FilePane filePane = findFilePane(this);
+            filePane.setViewType(FilePane.VIEWTYPE_DETAILS);
+            filePane.setViewType(FilePane.VIEWTYPE_LIST);
+
+            Color background = UIManager.getColor("Label.background");
+            setBackground(background);
+            setOpaque(true);
+
+            try {
+                UIManager.setLookAndFeel(old);
+            }
+            catch (UnsupportedLookAndFeelException ignored) {} // shouldn't get here
+        }
+    }
+
+
+
+    private static FilePane findFilePane(Container parent){
+        for(Component comp: parent.getComponents()){
+            if(FilePane.class.isInstance(comp)){
+                return (FilePane)comp;
+            }
+            if(comp instanceof Container){
+                Container cont = (Container)comp;
+                if(cont.getComponentCount() > 0){
+                    FilePane found = findFilePane(cont);
+                    if (found != null) {
+                        return found;
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+}
+
+
+class BgPanel extends JPanel{
+    private String path;
+    public void paintComponent(Graphics g) {
+        Image im = null;
+        try {
+            im = ImageIO.read(new File("4.jpg"));
+        } catch (IOException e) {
+        }
+        g.drawImage(im, 0, 0, null);
+    }  }
+
+
+

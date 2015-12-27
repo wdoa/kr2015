@@ -2,6 +2,15 @@ abstract class Product {
 	private String name;
 	private double amount;
 	private String dimension;
+	private String type;
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 
 	Product(String name, double amount, String dimension) {
 		this.name = name;
@@ -10,6 +19,11 @@ abstract class Product {
 	}
 
 	public double NormalAmount() {
+		double NormalAmount = 1;
+		return NormalAmount;
+	}
+
+	public double NormalAmount(String s) {
 		double NormalAmount = 1;
 		return NormalAmount;
 	}
@@ -50,8 +64,8 @@ abstract class Product {
 		return amount;
 	}
 
-	public double ProportionalAmount(double proportion) {
-		double ProportionalAmount = NormalAmount() * proportion;
+	public double ProportionalAmount(double proportion,String s) {
+		double ProportionalAmount = NormalAmount(s) * proportion;
 		return ProportionalAmount;
 	}
 
@@ -62,5 +76,6 @@ abstract class Product {
 	public double proportionalAmount(String from,String to){
 		return 0;
 	}
+	public double proportionalAmount(double a,String to){return 0;}
 
 }
